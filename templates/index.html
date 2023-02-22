@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-5">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="card card-body">
+      <h1>Agregar Alumno</q></h1>
+      <form action="/agregar_alumno" method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control"name="apellido" placeholder="Apellido">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="fecha_nacimiento" placeholder="Fecha_Nac">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="sexo" placeholder="Sexo">
+        </div>
+        <button class="btn btn-primary btn-block">
+          Guardar
+        </button>> 
+      </form>
+    </div>
+  </div>   
+    <div class="col-md-7">
+      <table class="table table-striped table-hover table-bordered table-sm bg-white">
+        <thead>
+          <tr>
+            <td>Nombre</td>
+            <td>Apellido</td>
+            <td>fecha_nacimiento</td>
+            <td>Sexo</td>
+            <td>Opciones</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for alumnos in alumno %}
+          <tr>
+            <td>{{alumnos.1}}</td>
+            <td>{{alumnos.2}}</td>
+            <td>{{alumnos.3}}</td>
+            <td>{{alumnos.4}}</td>
+            <td>
+              <a href="/edit/{{alumnos.0}}" class="btn btn-secondary">Modificar</a>
+              <a href="/delete/{{alumnos.0}}" class="btn btn-danger btn-delete">Borrar</a>
+              <a href="/notas/{{alumnos.0}}" class="btn btn-secondary">Notas</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div> 
+  </div>
+  <div class="card card-body">
+    <h1>Agregar curso</h1>
+    <form method="POST" action="{{ url_for('agregar_curso') }}">
+      <div class="form-group">
+  
+        <input type="text" class="form-control" name="nombre" placeholder="Nombre" required><br><br>
+      </div>
+      <div class="form-group">
+  
+        <input type="text" name="descripcion" class="form-control" placeholder="Descripcion" required><br><br>
+      </div>
+      <button  type="submit" value="Agregar" class="btn btn-primary btn-block">
+        Guardar
+      </button>
+    </form>
+  </div>
+</div>  
+
+{% endblock %}
